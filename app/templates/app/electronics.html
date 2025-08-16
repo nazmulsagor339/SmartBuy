@@ -1,0 +1,137 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Mobile{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        
+        <div class="col-md-2 ">
+            <div class="list_group">
+<!--        if else condition is used to change the color of the selected category       -->
+                {% if data == None %}
+                    <a href="{% url 'electronics' %}" class="list-group-item list-group-item-action text-white bg-info border text-center" aria-current="true">
+                        All Electronics
+                    </a>
+
+                {% else %}
+                    <a href="{% url 'electronics' %}" class="list-group-item list-group-item-action text-white bg-dark border text-center" aria-current="true">
+                        All Electronics
+                    </a>
+                {% endif %}
+
+                {% if data == 'Xiaomi' %}
+                    <a href="{% url 'data' 'Xiaomi' %}" class="list-group-item list-group-item-action text-white bg-info border text-center" aria-current="true">
+                        Headphone
+                    </a>
+
+                {% else %}
+                    <a href="{% url 'data' 'Xiaomi' %}" class="list-group-item list-group-item-action text-white bg-dark border text-center" aria-current="true">
+                        Headphone
+                    </a>
+                {% endif %}
+
+                {% if data == 'Canon-D' %}
+                    <a href="{% url 'data' 'Canon-D' %}" class="list-group-item list-group-item-action text-white bg-info border text-center" aria-current="true">
+                        Digital Camera
+                    </a>
+
+                {% else %}
+                    <a href="{% url 'data' 'Canon-D' %}" class="list-group-item list-group-item-action text-white bg-dark border text-center" aria-current="true">
+                        Digital Camera
+                    </a>
+                {% endif %}
+
+
+                {% if data == 'Rolex' %}
+                    <a href="{% url 'data' 'Rolex' %}" class="list-group-item list-group-item-action text-white bg-info border text-center" aria-current="true">
+                        Smart Watch
+                    </a>
+
+                {% else %}
+                    <a href="{% url 'data' 'Rolex' %}" class="list-group-item list-group-item-action text-white bg-dark border text-center" aria-current="true">
+                        Smart Watch
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-2 ">
+            <div class="list_group ">
+
+                <a class="list-group-item list-group-item-action text-white bg-dark border text-center fw-bold" aria-current="true">
+                    Filter Price
+                </a>
+
+                <div class="row">
+
+                    <div class="col-sm-6 text-center pb-1 pt-1">
+                        <a href="{% url 'data' 'XiaomiLow' %}" class=" btn btn-outline-info text-white  text-center" aria-current="true">
+                            Low
+                        </a>
+                    </div>
+
+                    <div class="col-sm-6 text-center pb-1 pt-1">
+                        <a href="{% url 'data' 'XiaomiHigh' %}" class=" btn btn-outline-info  text-white  text-center" aria-current="true">
+                            High
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 text-center pb-1">
+                        <a href="{% url 'data' 'Canon-DLow' %}" class=" btn btn-outline-info text-white  text-center" aria-current="true">
+                            Low
+                        </a>
+                    </div>
+
+                    <div class="col-sm-6 text-center">
+                        <a href="{% url 'data' 'Canon-DHigh' %}" class=" btn btn-outline-info text-white  text-center" aria-current="true">
+                            High
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 text-center">
+                        <a href="{% url 'data' 'RolexLow' %}" class=" btn btn-outline-info text-white  text-center" aria-current="true">
+                            Low
+                        </a>
+                    </div>
+
+                    <div class="col-sm-6 text-center">
+                        <a href="{% url 'data' 'RolexHigh' %}" class=" btn btn-outline-info text-white  text-center" aria-current="true">
+                            High
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+<!-- ------------------------------------------------------------------------------------------------------ -->
+        <div class="col-sm-7 offset-sm-1">
+            <div class="row">
+                {% if electronics %}
+                    {% for data in electronics %}
+                        <div class="col-sm-4 text-center mb-4">
+                            <a href="{% url 'product-detail' data.id %}" class="btn">
+                                <div class="item">
+                                    <img src="{{data.product_image.url}}" alt="" height="100">
+                                    <div class="fw-bold">
+                                        {{data.title}}
+                                    </div>
+                                    <div class="fw-bold">
+                                        Tk. {{data.discounted_price}}
+                                        <small class="fw-light text-decoration-line-through">
+                                            Tk. {{data.selling_price}}
+                                        </small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

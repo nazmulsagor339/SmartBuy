@@ -1,0 +1,57 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container my-3">
+    <div class="row">
+        <h3>Welcome {{request.user}}</h3>
+
+        <div class="col-md-2 border-end">
+            <ul class="list-styled">
+                <li class="d-grid"><a href="{% url 'profile' 1 %}" class="btn btn-outline-info">Profile</a></li>
+                <li class="d-grid"><a href="{% url 'address' %}" class="btn btn-outline-info">Add address</a></li>
+            </ul>
+        </div>
+
+        <div class="col-sm-9 offset-sm-1">
+
+            <div class="col-sm-6">
+                {% if messages %}
+                {% for message in messages %}
+                    <h3 class="alert alert-primary my-3">{{message}}</h3>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="row">
+
+                {% if address %}
+                    {% for info in address %}
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body bg-dark text-white">
+                                    <h3>Address {{ forloop.counter }}</h3>
+                                    <p>Name: {{info.name}}</p>
+                                    <p>City: {{info.city}}</p>
+                                    <p>District: {{info.district}}</p>
+                                    <p>Zip Code: {{info.zipcode}}</p>
+                                    <a href="{% url 'edit-address' info.id %}" class="btn btn-outline-info">Edit</a>
+                                    <a href="{% url 'delete-address' info.id %}" class="btn btn-outline-danger">Delete</a>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    {% endfor %}
+
+                {% else %}
+                    <h3 class="alert alert-primary my-3">You have not added any address yet.</h3>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock main-content %}
+
+

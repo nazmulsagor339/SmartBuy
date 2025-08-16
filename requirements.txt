@@ -1,0 +1,8 @@
+asgiref==3.9.1
+distlib==0.3.8
+Django==5.2.5
+filelock==3.14.0
+pillow==11.3.0
+platformdirs==4.2.2
+sqlparse==0.5.3
+tzdata==2025.2

@@ -1,0 +1,61 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+{% block main-content %}
+<div class="container my-3">
+    <div class="row">
+
+        <h3>Welcome {{request.user}}</h3>
+        <div class="col-sm-2 border-end">
+            <ul class="list-styled">
+                <li class="d-grid"><a href="{% url 'profile' 1 %}" class="btn btn-outline-info">Profile</a></li>
+                <li class="d-grid"><a href="{% url 'address_list' %}" class="btn btn-outline-info"> Addresses</a></li>
+            </ul>
+        </div>
+
+        <div class="col-sm-6 offset-sm-1">
+            <h3>Add Information</h3>
+            <hr>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <h3 class="alert alert-primary my-3">{{message}}</h3>
+                {% endfor %}
+            {% endif %}
+
+            <div class="bg-dark">
+                <form action="" method="post" class="shadow p-5" autocomplete="off">
+                    {% csrf_token %}
+                    {% for fm in form %}
+                        <div class="form-group">
+
+                            <div class="text-white">
+                                {{fm.label_tag}}
+                            </div>
+
+                            {{fm}}
+                            {% if fm.errors %}
+                                <small class="text-white fw-bold">{{fm.errors|striptags}}</small><br>
+                            {% endif %}
+                            <br>
+                        </div>
+                    {% endfor %}
+
+<!---------------------------------- BUTTON ------------------------------------------------------------>
+                    <div class="row">
+                        <div class="col-sm-4 text-center offset-sm-4">
+                            <input type="submit" class="btn btn-outline-info container-fluid" value="Save">
+                        </div>
+                    </div>
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <br><p class="alert alert-primary my-3">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock main-content %}

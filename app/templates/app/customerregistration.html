@@ -1,0 +1,54 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Customer Registration{% endblock title %}
+{% block main-content %}
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+            <h3>Customer Registration</h3>
+            <hr>
+            <div class="bg-dark">
+                <form action="" method="post" class="shadow p-5" autocomplete="off">
+                    {% csrf_token %}
+                    {% for fm in form %}
+                        <div class="form-group">
+                            {{fm}}
+                            {% if fm.errors %}
+                                <small class="text-white fw-bold">{{fm.errors|striptags}}</small><br>
+                            {% endif %}
+
+                            {% if fm.help_text %}
+
+                                {% if fm.name == 'password1' %}
+                                    <br><small class="text-info fw-bold">{{fm.help_text|safe}}</small>
+                                {% else %}
+                                <small class="text-info fw-bold">{{fm.help_text|safe}}</small> <br>
+                                {% endif %}
+
+                            {% endif %}
+                            <br>
+                        </div>
+                    {% endfor %}
+
+<!---------------------------------- BUTTON ------------------------------------------------------------>
+                    <div class="row">
+                        <div class="col-sm-4 text-center offset-sm-4">
+                            <input type="submit" class="btn btn-outline-info container-fluid" value="Register">
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="text-center text-white fw-bold"><small>Already have account ?
+                        <a href="{% url 'login' %}">Login Now<a> </small>
+                        </div>
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <p class="alert alert-primary my-3">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

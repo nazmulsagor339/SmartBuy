@@ -1,0 +1,88 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container my-3">
+    <div class="row">
+        <h3>Welcome {{request.user}}</h3>
+
+        <div class="col-sm-3 border-end">
+            <ul class="list-styled">
+                <li class="d-grid"><a href="{% url 'profile' 2 %}" class="btn btn-outline-info">Edit Profile</a></li>
+                <li class="d-grid"><a href="{% url 'address_list' %}" class="btn btn-outline-info">Addresses</a></li>
+                <li class="d-grid"><a href="{% url 'changepassword' %}" class="btn btn-outline-info">Password Change</a></li>
+            </ul>
+        </div>
+        {% if pk == 1 %}
+            <div class="col-sm-8 offset-sm-1">
+                <div class="row">
+
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body bg-dark text-white">
+                                    <h3>All Information</h3>
+                                    <hr>
+
+                                    <p>First Name: {{request.user.first_name}}</p>
+                                    <p>Last Name: {{request.user.last_name}}</p>
+                                    <p>Email: {{request.user.email}}</p>
+                                    <p>Username: {{request.user.username}}</p>
+                                    <!-- <a href="{% url 'profile' 2 %}" class="btn btn-outline-info">Edit</a> -->
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+
+                </div>
+            </div>
+
+        {% elif pk == 2 %}
+            <div class="col-sm-6 offset-sm-1">
+                <h3>Add Information</h3>
+                <hr>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <h3 class="alert alert-primary my-3">{{message}}</h3>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="bg-dark">
+                    <form action="" method="post"  class="shadow p-5" autocomplete="off">
+                        {% csrf_token %}
+                        {% for fm in form %}
+                            <div class="form-group">
+
+                                <div class="text-white">
+                                    {{fm.label_tag}}
+                                </div>
+
+                                {{fm}}
+                                {% if fm.errors %}
+                                    <small class="text-white fw-bold">{{fm.errors|striptags}}</small><br>
+                                {% endif %}
+                                <br>
+                            </div>
+                        {% endfor %}
+
+    <!---------------------------------- BUTTON ------------------------------------------------------------>
+                        <div class="row">
+                            <div class="col-sm-4 text-center offset-sm-4">
+                                <input type="submit" class="btn btn-outline-info container-fluid" value="Save">
+                            </div>
+                        </div>
+                        {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                                <br><p class="alert alert-primary my-3">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock main-content %}
+
+
